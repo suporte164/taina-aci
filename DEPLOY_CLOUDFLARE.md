@@ -31,6 +31,8 @@ Esse comando faz:
 1. build do Next.js + OpenNext
 2. validação do deploy com `wrangler deploy --dry-run` (sem publicar)
 
+> Em CI (Workers Builds), `npm run build` detecta automaticamente ambiente Cloudflare/CI e usa `opennextjs-cloudflare build` para gerar os artefatos esperados pelo `wrangler deploy`.
+
 ## 4) Publicar em produção
 
 ```bash
