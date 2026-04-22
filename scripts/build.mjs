@@ -3,14 +3,24 @@ import { spawnSync } from "node:child_process";
 const shouldUseCloudflareBuild =
   process.env.CI === "true" ||
   Boolean(process.env.CF_PAGES) ||
-  Boolean(process.env.CLOUDFLARE_ACCOUNT_ID);
+  process.env.OPENNEXT_CLOUDFLARE_BUILD === "1";
 
-const command = shouldUseCloudflareBuild ? "opennextjs-cloudflare" : "next";
+// Prevent recursive loops:
+// opennextjs-cloudflare build invokes "pnpm build" internally.
+// Mark the first invocation and force the nested one to run "next build".
+const isNestedCloudflareBuild = process.env.OPENNEXT_WRAP_PHASE === "next-build";
+const shouldRunOpenNext = shouldUseCloudflareBuild && !isNestedCloudflareBuild;
+
+const command = shouldRunOpenNext ? "opennextjs-cloudflare" : "next";
 const args = shouldUseCloudflareBuild ? ["build"] : ["build"];
 
 const result = spawnSync(command, args, {
   stdio: "inherit",
   shell: process.platform === "win32",
+  env: {
+    ...process.env,
+    OPENNEXT_WRAP_PHASE: "next-build",
+  },
 });
 
 if (typeof result.status === "number") {
