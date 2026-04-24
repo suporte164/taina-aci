@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
+import { CTAButton } from "@/components/ui/cta-button"
 
 interface HeaderProps {
   onOpenModal: () => void
@@ -34,12 +34,9 @@ export function Header({ onOpenModal }: HeaderProps) {
           className="h-14 md:h-16 w-auto"
           priority
         />
-        <Button
-          onClick={onOpenModal}
-          className="bg-[#AABB6A] hover:bg-[#9AAB5A] text-white font-medium px-4 md:px-6 text-sm md:text-base"
-        >
+        <CTAButton onClick={onOpenModal}>
           Agendar Consulta
-        </Button>
+        </CTAButton>
       </div>
     </header>
   )

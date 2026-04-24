@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
+import { CTAButton } from "@/components/ui/cta-button"
 
 interface HeroProps {
   onOpenModal: () => void
@@ -37,13 +37,9 @@ export function Hero({ onOpenModal }: HeroProps) {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-              <Button
-                onClick={onOpenModal}
-                size="lg"
-                className="bg-[#AABB6A] hover:bg-[#9AAB5A] text-white font-medium px-8 py-6 text-base w-full sm:w-auto"
-              >
+              <CTAButton onClick={onOpenModal} className="text-base h-14 ps-8 pe-16 hover:ps-16 hover:pe-8">
                 Agendar consulta
-              </Button>
+              </CTAButton>
             </div>
 
             <p className="text-sm text-muted-foreground">

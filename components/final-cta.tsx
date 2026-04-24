@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Button } from "@/components/ui/button"
+import { CTAButton } from "@/components/ui/cta-button"
 
 interface FinalCTAProps {
   onOpenModal: () => void
@@ -44,13 +44,9 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
         </p>
 
         <div className="space-y-4">
-          <Button
-            onClick={onOpenModal}
-            size="lg"
-            className="bg-[#AABB6A] hover:bg-[#9AAB5A] text-white font-medium px-10 py-7 text-lg"
-          >
+          <CTAButton onClick={onOpenModal} className="text-base h-14 ps-8 pe-16 hover:ps-16 hover:pe-8">
             Quero garantir minha vaga
-          </Button>
+          </CTAButton>
           <p className="text-sm text-white/60">
             Nossa equipe entrará em contato pelo WhatsApp imediatamente
           </p>
