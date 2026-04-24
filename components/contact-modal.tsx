@@ -68,7 +68,25 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     e.preventDefault()
     if (!isFormValid) return
     setIsSubmitting(true)
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+
+    // Dispara webhook n8n (sem bloquear o fluxo em caso de falha)
+    try {
+      await fetch("https://n8n-webhook.axmxa0.easypanel.host/webhook/vila-mariana-sp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nome: name,
+          telefone: phone,
+          objetivo: finalObjective,
+          origem: "formulario-modal",
+          pagina: typeof window !== "undefined" ? window.location.href : "",
+          data: new Date().toISOString(),
+        }),
+      })
+    } catch (_) {
+      // Falha silenciosa — não impede o fluxo do usuário
+    }
+
     setIsSubmitting(false)
     setIsSubmitted(true)
     setTimeout(() => {
