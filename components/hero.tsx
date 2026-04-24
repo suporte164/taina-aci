@@ -38,8 +38,8 @@ export function Hero({ onOpenModal }: HeroProps) {
           </div>
 
           <h1 className="text-[2rem] leading-[1.15] font-serif text-foreground">
-            Endocrinologia<br />
-            <span className="text-primary">& Metabologia</span>
+            Endocrinologista<br />
+            <span className="text-primary">na Vila Mariana</span>
           </h1>
 
           <p className="text-[15px] text-muted-foreground leading-relaxed">
