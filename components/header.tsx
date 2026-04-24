@@ -27,7 +27,7 @@ export function Header({ onOpenModal }: HeaderProps) {
     >
       <div className="container mx-auto h-full flex items-center justify-between px-4 lg:px-8">
         <Image
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-taina-aci-endocrinologista-EbAIwBI2XjhD3n9QlAL4BKoBmVz2qC.png"
+          src="https://odisewmgwxgjhqhsznuv.supabase.co/storage/v1/object/public/taina-stories/logo-principal.png"
           alt="Dra. Tainã Aci - Endocrinologia e Metabologia Nutrologia"
           width={280}
           height={70}

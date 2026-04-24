@@ -110,7 +110,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
         <div className="text-center mb-6">
           <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-taina-aci-endocrinologista-EbAIwBI2XjhD3n9QlAL4BKoBmVz2qC.png"
+            src="https://odisewmgwxgjhqhsznuv.supabase.co/storage/v1/object/public/taina-stories/logo-principal.png"
             alt="Dra. Tainã Aci"
             width={140}
             height={45}

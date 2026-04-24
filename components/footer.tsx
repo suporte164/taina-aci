@@ -22,11 +22,11 @@ export function Footer() {
           {/* Coluna 1: Logo e Descrição */}
           <div className="space-y-5">
             <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-taina-aci-endocrinologista-EbAIwBI2XjhD3n9QlAL4BKoBmVz2qC.png"
+              src="https://odisewmgwxgjhqhsznuv.supabase.co/storage/v1/object/public/taina-stories/logo-rodape.png"
               alt="Dra. Tainã Aci - Endocrinologia e Metabologia Nutrologia"
               width={280}
               height={70}
-              className="h-16 w-auto brightness-0 invert"
+              className="h-16 w-auto"
             />
             <p className="text-sm leading-relaxed text-white/80">
               Endocrinologista na Vila Mariana especializada em emagrecimento, tratamento hormonal e saúde metabólica. 
