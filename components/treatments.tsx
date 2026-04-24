@@ -2,7 +2,16 @@
 
 import { useEffect, useRef, useState } from "react"
 import { CTAButton } from "@/components/ui/cta-button"
-import { Scale, Heart, User, Activity, Baby, Droplets, Zap, Shield } from "lucide-react"
+import {
+  ObesidadeIcon,
+  MenopausaIcon,
+  HormoniosMasculinosIcon,
+  PosBáriatricaIcon,
+  GestacaoIcon,
+  DiabetesIcon,
+  TireoideIcon,
+  PrevencaoIcon,
+} from "@/components/ui/treatment-icons"
 
 interface TreatmentsProps {
   onOpenModal: () => void
@@ -10,42 +19,42 @@ interface TreatmentsProps {
 
 const treatments = [
   {
-    icon: Scale,
+    Icon: ObesidadeIcon,
     title: "Obesidade",
     description: "Tratamento médico completo com foco em emagrecimento sustentável",
   },
   {
-    icon: Heart,
+    Icon: MenopausaIcon,
     title: "Menopausa",
     description: "Controle dos sintomas e melhora da composição corporal",
   },
   {
-    icon: User,
+    Icon: HormoniosMasculinosIcon,
     title: "Hormônios Masculinos",
     description: "Diagnóstico e tratamento da deficiência de testosterona em homens",
   },
   {
-    icon: Activity,
+    Icon: PosBáriatricaIcon,
     title: "Pós-Bariátrica",
     description: "Acompanhamento especializado para reposição de vitaminas, manutenção do peso perdido e tratamento do reganho de peso caso aconteça",
   },
   {
-    icon: Baby,
+    Icon: GestacaoIcon,
     title: "Gestação",
     description: "Acompanhamento, suplementação, prevenção e tratamento do diabetes gestacional e disfunções da tireoide",
   },
   {
-    icon: Droplets,
+    Icon: DiabetesIcon,
     title: "Diabetes",
     description: "Manejo clínico moderno e individualizado",
   },
   {
-    icon: Zap,
+    Icon: TireoideIcon,
     title: "Tireoide",
     description: "Diagnóstico preciso e tratamento personalizado",
   },
   {
-    icon: Shield,
+    Icon: PrevencaoIcon,
     title: "Prevenção",
     description: "Para quem quer otimizar saúde antes dos sintomas aparecerem",
   },
@@ -92,10 +101,12 @@ export function Treatments({ onOpenModal }: TreatmentsProps) {
           {treatments.map((treatment, index) => (
             <div
               key={treatment.title}
-              className="bg-card p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+              className="bg-card p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow group"
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              <treatment.icon className="w-10 h-10 text-primary mb-4" />
+              <div className="w-12 h-12 mb-4 text-primary transition-transform duration-300 group-hover:scale-110">
+                <treatment.Icon className="w-full h-full" />
+              </div>
               <h3 className="text-lg font-semibold mb-2 text-card-foreground">{treatment.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {treatment.description}
