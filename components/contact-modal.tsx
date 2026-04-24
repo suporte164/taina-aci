@@ -69,9 +69,9 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     if (!isFormValid) return
     setIsSubmitting(true)
 
-    // Dispara webhook n8n (sem bloquear o fluxo em caso de falha)
+    // Envia lead via rota de API interna (evita CORS do browser → n8n)
     try {
-      await fetch("https://n8n-webhook.axmxa0.easypanel.host/webhook/vila-mariana-sp", {
+      await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
