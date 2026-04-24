@@ -1,4 +1,4 @@
-export const runtime = "edge"
+export const runtime = "nodejs"
 
 const WEBHOOK_URL =
   "https://n8n-webhook.axmxa0.easypanel.host/webhook/vila-mariana-sp"
