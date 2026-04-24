@@ -37,47 +37,75 @@ export function Differentials() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
+        if (entry.isIntersecting) setIsVisible(true)
       },
       { threshold: 0.1 }
     )
-
-    if (ref.current) {
-      observer.observe(ref.current)
-    }
-
+    if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
   }, [])
 
   return (
     <section id="diferenciais" className="py-24 lg:py-32 bg-background">
       <div ref={ref} className="container mx-auto px-4 lg:px-8">
+
+        {/* Header */}
         <div className="text-center mb-16">
           <p className="text-sm uppercase tracking-widest text-primary font-medium mb-4">
             Diferenciais
           </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-balance">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-balance mx-auto max-w-2xl">
             Um modelo de consulta que você não encontra no convencional
           </h2>
         </div>
 
-        <div className="space-y-16 max-w-5xl mx-auto">
+        {/* Items */}
+        <div className="max-w-4xl mx-auto space-y-6 md:space-y-12">
           {differentials.map((item, index) => (
             <div
               key={item.title}
-              className={`flex flex-col md:flex-row items-center gap-8 transition-all duration-700 ${
+              className={`transition-all duration-700 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              } ${index % 2 === 1 ? "md:flex-row-reverse" : ""}`}
+              }`}
               style={{ transitionDelay: `${index * 150}ms` }}
             >
-              <div className="flex-shrink-0 w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center">
-                <item.icon className="w-10 h-10 text-primary" />
+              {/* Mobile: card compacto */}
+              <div className="md:hidden bg-muted/50 rounded-2xl p-5 flex flex-col gap-4 border border-border/40">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <item.icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <h3 className="text-base font-semibold text-foreground text-balance leading-snug">
+                    {item.title}
+                  </h3>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed text-balance">
+                  {item.description}
+                </p>
               </div>
-              <div className={`flex-1 ${index % 2 === 1 ? "md:text-right" : ""}`}>
-                <h3 className="text-xl font-semibold mb-3 text-foreground">{item.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+
+              {/* Desktop: alternating layout */}
+              <div
+                className={`hidden md:flex items-start gap-10 ${
+                  index % 2 === 1 ? "flex-row-reverse" : "flex-row"
+                }`}
+              >
+                <div className="flex-shrink-0 flex flex-col items-center gap-3">
+                  <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
+                    <item.icon className="w-8 h-8 text-primary" />
+                  </div>
+                  <span className="text-xs text-primary/50 font-medium tabular-nums">
+                    0{index + 1}
+                  </span>
+                </div>
+                <div className={`flex-1 pt-1 ${index % 2 === 1 ? "text-right" : ""}`}>
+                  <h3 className="text-xl font-semibold mb-3 text-foreground text-balance">
+                    {item.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed text-balance">
+                    {item.description}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
