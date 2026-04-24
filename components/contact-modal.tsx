@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
-import { X, Check, MessageCircle } from "lucide-react"
+import { X, Check, MessageCircle, ChevronDown } from "lucide-react"
 import { CTAButton } from "@/components/ui/cta-button"
 import { cn } from "@/lib/utils"
 
@@ -33,10 +33,23 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [agreed, setAgreed] = useState(true)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   const isOther = objective === "Outro"
   const finalObjective = isOther ? (otherText.trim() || "Outro") : objective
   const isFormValid = !!name && !!phone && !!objective && (!isOther || !!otherText.trim()) && agreed
+
+  // Fecha dropdown ao clicar fora
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setIsDropdownOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handler)
+    return () => document.removeEventListener("mousedown", handler)
+  }, [])
 
   const formatPhone = (value: string) => {
     const numbers = value.replace(/\D/g, "")
@@ -76,6 +89,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     setOtherText("")
     setAgreed(true)
     setIsSubmitted(false)
+    setIsDropdownOpen(false)
   }
 
   const handleClose = () => {
@@ -185,33 +199,63 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 </label>
               </div>
 
-              {/* Objective pills */}
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-primary font-medium mb-2.5">
+              {/* Objective dropdown */}
+              <div ref={dropdownRef} className="relative">
+                {/* Label fixa acima */}
+                <p className="text-[10px] uppercase tracking-widest text-primary font-medium mb-1.5">
                   Objetivo principal
                 </p>
-                <div className="grid grid-cols-2 gap-2">
-                  {objectives.map((obj) => (
-                    <button
-                      key={obj}
-                      type="button"
-                      onClick={() => {
-                        setObjective(obj)
-                        if (obj !== "Outro") setOtherText("")
-                      }}
-                      className={cn(
-                        "text-left text-xs px-3 py-2.5 rounded-xl border transition-all duration-200 leading-snug",
-                        objective === obj
-                          ? "border-primary bg-primary/10 text-primary font-medium"
-                          : "border-border bg-muted/30 text-muted-foreground hover:border-primary/50 hover:bg-muted/60"
-                      )}
-                    >
-                      {obj}
-                    </button>
-                  ))}
-                </div>
 
-                {/* Campo condicional "Outro" */}
+                {/* Trigger */}
+                <button
+                  type="button"
+                  onClick={() => setIsDropdownOpen((v) => !v)}
+                  className={cn(
+                    "w-full px-4 py-3.5 text-sm border rounded-xl bg-muted/30 text-left flex items-center justify-between gap-3 transition-all duration-200 focus:outline-none",
+                    isDropdownOpen
+                      ? "border-primary bg-white"
+                      : "border-border hover:border-primary/50"
+                  )}
+                >
+                  <span className={objective ? "text-foreground" : "text-muted-foreground"}>
+                    {objective || "Selecione o acompanhamento"}
+                  </span>
+                  <ChevronDown
+                    className={cn(
+                      "w-4 h-4 flex-shrink-0 text-muted-foreground transition-transform duration-200",
+                      isDropdownOpen && "rotate-180"
+                    )}
+                  />
+                </button>
+
+                {/* Dropdown list */}
+                {isDropdownOpen && (
+                  <div className="absolute z-30 mt-1.5 w-full bg-white border border-border rounded-xl shadow-xl overflow-hidden">
+                    <div className="max-h-56 overflow-y-auto divide-y divide-border/50">
+                      {objectives.map((obj) => (
+                        <button
+                          key={obj}
+                          type="button"
+                          onClick={() => {
+                            setObjective(obj)
+                            setIsDropdownOpen(false)
+                            if (obj !== "Outro") setOtherText("")
+                          }}
+                          className={cn(
+                            "w-full text-left px-4 py-3 text-sm transition-colors",
+                            objective === obj
+                              ? "bg-primary/10 text-primary font-medium"
+                              : "text-foreground hover:bg-muted/60"
+                          )}
+                        >
+                          {obj}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Campo livre quando "Outro" selecionado */}
                 {isOther && (
                   <div className="relative mt-2">
                     <input
