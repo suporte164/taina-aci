@@ -12,11 +12,16 @@ interface ContactModalProps {
 }
 
 const objectives = [
-  "Emagrecimento",
-  "Hormônios e Menopausa",
-  "Diabetes ou Tireoide",
-  "Pós-Bariátrica",
-  "Prevenção e Qualidade de Vida",
+  "Emagrecimento e Tratamento da Obesidade",
+  "Saúde Hormonal Feminina e Menopausa",
+  "Saúde Hormonal Masculina e Testosterona",
+  "Acompanhamento Pós-Bariátrica (Reposição e Manutenção)",
+  "Acompanhamento Metabólico e Hormonal na Gestação",
+  "Tratamento de Diabetes (Tipo 1, 2 e Gestacional)",
+  "Controle de Distúrbios da Tireoide",
+  "Prevenção, Longevidade e Check-up Hormonal",
+  "Hipertrofia e Ganho de Massa Magra",
+  "Controle de Colesterol e Triglicerídeos",
   "Outro",
 ]
 
@@ -24,9 +29,14 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
   const [objective, setObjective] = useState("")
+  const [otherText, setOtherText] = useState("")
   const [agreed, setAgreed] = useState(true)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const isOther = objective === "Outro"
+  const finalObjective = isOther ? (otherText.trim() || "Outro") : objective
+  const isFormValid = !!name && !!phone && !!objective && (!isOther || !!otherText.trim()) && agreed
 
   const formatPhone = (value: string) => {
     const numbers = value.replace(/\D/g, "")
@@ -43,15 +53,15 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!name || !phone || !objective || !agreed) return
+    if (!isFormValid) return
     setIsSubmitting(true)
     await new Promise((resolve) => setTimeout(resolve, 1000))
     setIsSubmitting(false)
     setIsSubmitted(true)
     setTimeout(() => {
-      const whatsappNumber = "5511999999999"
+      const whatsappNumber = "5511951515103"
       const message = encodeURIComponent(
-        `Olá! Meu nome é ${name} e gostaria de agendar uma consulta. Meu objetivo principal é: ${objective}.`
+        `Olá! Meu nome é ${name} e gostaria de agendar uma consulta. Meu objetivo principal é: ${finalObjective}.`
       )
       window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank")
       onClose()
@@ -63,6 +73,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     setName("")
     setPhone("")
     setObjective("")
+    setOtherText("")
     setAgreed(true)
     setIsSubmitted(false)
   }
@@ -83,10 +94,10 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
       />
 
       {/* Modal */}
-      <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-300">
+      <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-md max-h-[92dvh] overflow-y-auto animate-in fade-in zoom-in-95 duration-300">
 
         {/* Decorative top bar */}
-        <div className="h-1 bg-gradient-to-r from-transparent via-[#AABB6A] to-transparent" />
+        <div className="h-1 bg-gradient-to-r from-transparent via-[#AABB6A] to-transparent sticky top-0" />
 
         {/* Close button */}
         <button
@@ -114,7 +125,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
               <div className="flex-1 h-px bg-border" />
             </div>
             <h3 className="text-xl font-serif text-foreground leading-snug">
-              Iniciar meu acompanhamento
+              Fale agora com um atendente
             </h3>
             <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">
               Nossa equipe entrará em contato pelo WhatsApp em instantes.
@@ -154,7 +165,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   required
                   className="peer w-full px-4 pt-5 pb-2 text-sm border border-border rounded-xl bg-muted/30 text-foreground placeholder-transparent focus:outline-none focus:border-primary focus:bg-white transition-all duration-200"
                 />
-                <label className="absolute left-4 top-1.5 text-[10px] uppercase tracking-widest text-primary font-medium pointer-events-none transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-muted-foreground peer-placeholder-shown:uppercase-none peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:tracking-widest peer-focus:text-primary">
+                <label className="absolute left-4 top-1.5 text-[10px] uppercase tracking-widest text-primary font-medium pointer-events-none transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-muted-foreground peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:tracking-widest peer-focus:text-primary">
                   Nome completo
                 </label>
               </div>
@@ -184,7 +195,10 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                     <button
                       key={obj}
                       type="button"
-                      onClick={() => setObjective(obj)}
+                      onClick={() => {
+                        setObjective(obj)
+                        if (obj !== "Outro") setOtherText("")
+                      }}
                       className={cn(
                         "text-left text-xs px-3 py-2.5 rounded-xl border transition-all duration-200 leading-snug",
                         objective === obj
@@ -196,6 +210,23 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                     </button>
                   ))}
                 </div>
+
+                {/* Campo condicional "Outro" */}
+                {isOther && (
+                  <div className="relative mt-2">
+                    <input
+                      type="text"
+                      placeholder=" "
+                      value={otherText}
+                      onChange={(e) => setOtherText(e.target.value)}
+                      autoFocus
+                      className="peer w-full px-4 pt-5 pb-2 text-sm border border-primary rounded-xl bg-primary/5 text-foreground placeholder-transparent focus:outline-none focus:bg-white transition-all duration-200"
+                    />
+                    <label className="absolute left-4 top-1.5 text-[10px] uppercase tracking-widest text-primary font-medium pointer-events-none transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-muted-foreground peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:tracking-widest peer-focus:text-primary">
+                      Descreva seu objetivo
+                    </label>
+                  </div>
+                )}
               </div>
 
               {/* Privacy checkbox */}
@@ -225,7 +256,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
               <div className="pt-1">
                 <CTAButton
                   type="submit"
-                  disabled={!name || !phone || !objective || !agreed || isSubmitting}
+                  disabled={!isFormValid || isSubmitting}
                   fullWidth
                 >
                   {isSubmitting ? "Enviando..." : "Falar com a equipe agora"}
