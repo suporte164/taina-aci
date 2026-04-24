@@ -2,18 +2,9 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { X, Check } from "lucide-react"
+import { X, Check, MessageCircle } from "lucide-react"
 import { CTAButton } from "@/components/ui/cta-button"
-import { Input } from "@/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Label } from "@/components/ui/label"
+import { cn } from "@/lib/utils"
 
 interface ContactModalProps {
   isOpen: boolean
@@ -33,7 +24,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
   const [objective, setObjective] = useState("")
-  const [agreed, setAgreed] = useState(false)
+  const [agreed, setAgreed] = useState(true)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -53,18 +44,12 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!name || !phone || !objective || !agreed) return
-
     setIsSubmitting(true)
-    
-    // Simulate submission
     await new Promise((resolve) => setTimeout(resolve, 1000))
-    
     setIsSubmitting(false)
     setIsSubmitted(true)
-
-    // Redirect to WhatsApp after 3 seconds
     setTimeout(() => {
-      const whatsappNumber = "5511999999999" // Replace with real number
+      const whatsappNumber = "5511999999999"
       const message = encodeURIComponent(
         `Olá! Meu nome é ${name} e gostaria de agendar uma consulta. Meu objetivo principal é: ${objective}.`
       )
@@ -78,15 +63,13 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     setName("")
     setPhone("")
     setObjective("")
-    setAgreed(false)
+    setAgreed(true)
     setIsSubmitted(false)
   }
 
   const handleClose = () => {
     onClose()
-    if (isSubmitted) {
-      resetForm()
-    }
+    if (isSubmitted) resetForm()
   }
 
   if (!isOpen) return null
@@ -95,110 +78,163 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Overlay */}
       <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
         onClick={handleClose}
       />
 
       {/* Modal */}
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 animate-in fade-in zoom-in-95 duration-200">
+      <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-300">
+
+        {/* Decorative top bar */}
+        <div className="h-1 bg-gradient-to-r from-transparent via-[#AABB6A] to-transparent" />
+
+        {/* Close button */}
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors"
+          className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-muted/80 text-muted-foreground hover:bg-muted hover:text-foreground transition-all"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4" />
         </button>
 
-        <div className="text-center mb-6">
-          <Image
-            src="https://odisewmgwxgjhqhsznuv.supabase.co/storage/v1/object/public/taina-stories/logo-principal.png"
-            alt="Dra. Tainã Aci"
-            width={140}
-            height={45}
-            className="h-10 w-auto mx-auto mb-4"
-          />
-          <h3 className="text-xl font-serif text-foreground">
-            Iniciar meu acompanhamento
-          </h3>
-          <p className="text-sm text-muted-foreground mt-2">
-            Preencha seus dados e nossa equipe entrará em contato pelo WhatsApp imediatamente para iniciar o atendimento.
-          </p>
-        </div>
-
-        {isSubmitted ? (
-          <div className="text-center py-8 space-y-4">
-            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
-              <Check className="w-8 h-8 text-primary" />
+        <div className="px-8 pt-8 pb-8">
+          {/* Header */}
+          <div className="text-center mb-7">
+            <Image
+              src="https://odisewmgwxgjhqhsznuv.supabase.co/storage/v1/object/public/taina-stories/logo-principal.png"
+              alt="Dra. Tainã Aci"
+              width={160}
+              height={50}
+              className="h-12 w-auto mx-auto mb-5"
+            />
+            <div className="flex items-center gap-3 mb-5">
+              <div className="flex-1 h-px bg-border" />
+              <span className="text-[10px] uppercase tracking-[0.2em] text-primary font-medium">
+                Consulta Particular
+              </span>
+              <div className="flex-1 h-px bg-border" />
             </div>
-            <div>
-              <p className="font-medium text-foreground">Perfeito!</p>
-              <p className="text-sm text-muted-foreground mt-2">
-                Nossa equipe já foi notificada e entrará em contato em instantes. Fique de olho no seu WhatsApp! 📱
-              </p>
-            </div>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <Input
-                type="text"
-                placeholder="Seu nome completo"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full"
-                required
-              />
-            </div>
-
-            <div>
-              <Input
-                type="tel"
-                placeholder="(11) 99999-9999"
-                value={phone}
-                onChange={handlePhoneChange}
-                className="w-full"
-                required
-              />
-            </div>
-
-            <div>
-              <Select value={objective} onValueChange={setObjective} required>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Qual seu principal objetivo?" />
-                </SelectTrigger>
-                <SelectContent>
-                  {objectives.map((obj) => (
-                    <SelectItem key={obj} value={obj}>
-                      {obj}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="flex items-start gap-3">
-              <Checkbox
-                id="agree"
-                checked={agreed}
-                onCheckedChange={(checked) => setAgreed(checked as boolean)}
-              />
-              <Label htmlFor="agree" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
-                Autorizo o uso dos meus dados para contato, conforme a política de privacidade.
-              </Label>
-            </div>
-
-            <CTAButton
-              type="submit"
-              disabled={!name || !phone || !objective || !agreed || isSubmitting}
-              fullWidth
-            >
-              {isSubmitting ? "Enviando..." : "Falar com a equipe agora"}
-            </CTAButton>
-
-            <p className="text-xs text-center text-muted-foreground">
-              Você será atendido em instantes pelo WhatsApp
+            <h3 className="text-xl font-serif text-foreground leading-snug">
+              Iniciar meu acompanhamento
+            </h3>
+            <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">
+              Nossa equipe entrará em contato pelo WhatsApp em instantes.
             </p>
-          </form>
-        )}
+          </div>
+
+          {/* Success state */}
+          {isSubmitted ? (
+            <div className="text-center py-10 space-y-5">
+              <div className="relative mx-auto w-20 h-20">
+                <div className="absolute inset-0 rounded-full bg-primary/10 animate-ping opacity-40" />
+                <div className="relative w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center">
+                  <Check className="w-9 h-9 text-primary" strokeWidth={2} />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <p className="text-lg font-serif text-foreground">Recebemos seu contato!</p>
+                <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mx-auto">
+                  Nossa equipe já foi notificada e entrará em contato em instantes pelo WhatsApp.
+                </p>
+              </div>
+              <div className="flex items-center justify-center gap-2 text-[#25D366]">
+                <MessageCircle className="w-4 h-4 fill-current" />
+                <span className="text-sm font-medium">Abrindo WhatsApp...</span>
+              </div>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-4">
+
+              {/* Name input */}
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder=" "
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  className="peer w-full px-4 pt-5 pb-2 text-sm border border-border rounded-xl bg-muted/30 text-foreground placeholder-transparent focus:outline-none focus:border-primary focus:bg-white transition-all duration-200"
+                />
+                <label className="absolute left-4 top-1.5 text-[10px] uppercase tracking-widest text-primary font-medium pointer-events-none transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-muted-foreground peer-placeholder-shown:uppercase-none peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:tracking-widest peer-focus:text-primary">
+                  Nome completo
+                </label>
+              </div>
+
+              {/* Phone input */}
+              <div className="relative">
+                <input
+                  type="tel"
+                  placeholder=" "
+                  value={phone}
+                  onChange={handlePhoneChange}
+                  required
+                  className="peer w-full px-4 pt-5 pb-2 text-sm border border-border rounded-xl bg-muted/30 text-foreground placeholder-transparent focus:outline-none focus:border-primary focus:bg-white transition-all duration-200"
+                />
+                <label className="absolute left-4 top-1.5 text-[10px] uppercase tracking-widest text-primary font-medium pointer-events-none transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-muted-foreground peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:tracking-widest peer-focus:text-primary">
+                  WhatsApp
+                </label>
+              </div>
+
+              {/* Objective pills */}
+              <div>
+                <p className="text-[10px] uppercase tracking-widest text-primary font-medium mb-2.5">
+                  Objetivo principal
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  {objectives.map((obj) => (
+                    <button
+                      key={obj}
+                      type="button"
+                      onClick={() => setObjective(obj)}
+                      className={cn(
+                        "text-left text-xs px-3 py-2.5 rounded-xl border transition-all duration-200 leading-snug",
+                        objective === obj
+                          ? "border-primary bg-primary/10 text-primary font-medium"
+                          : "border-border bg-muted/30 text-muted-foreground hover:border-primary/50 hover:bg-muted/60"
+                      )}
+                    >
+                      {obj}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Privacy checkbox */}
+              <label className="flex items-start gap-3 cursor-pointer group">
+                <div className="relative flex-shrink-0 mt-0.5">
+                  <input
+                    type="checkbox"
+                    checked={agreed}
+                    onChange={(e) => setAgreed(e.target.checked)}
+                    className="sr-only peer"
+                  />
+                  <div className={cn(
+                    "w-4 h-4 rounded border transition-all duration-200",
+                    agreed
+                      ? "bg-primary border-primary"
+                      : "border-border bg-white group-hover:border-primary/50"
+                  )}>
+                    {agreed && <Check className="w-3 h-3 text-white m-auto mt-0.5" strokeWidth={3} />}
+                  </div>
+                </div>
+                <span className="text-xs text-muted-foreground leading-relaxed">
+                  Autorizo o uso dos meus dados para contato, conforme a política de privacidade.
+                </span>
+              </label>
+
+              {/* Submit */}
+              <div className="pt-1">
+                <CTAButton
+                  type="submit"
+                  disabled={!name || !phone || !objective || !agreed || isSubmitting}
+                  fullWidth
+                >
+                  {isSubmitting ? "Enviando..." : "Falar com a equipe agora"}
+                </CTAButton>
+              </div>
+
+            </form>
+          )}
+        </div>
       </div>
     </div>
   )
