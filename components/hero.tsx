@@ -20,7 +20,7 @@ export function Hero({ onOpenModal }: HeroProps) {
             src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/FOTO%20TAINA1-2BJX8A68XuuPN4jOi6zgOVMJXZUqd7.jpg"
             alt="Dra. Tainã Aci em seu consultório"
             fill
-            className="object-cover object-top"
+            className="object-cover object-center"
             priority
             sizes="100vw"
           />
