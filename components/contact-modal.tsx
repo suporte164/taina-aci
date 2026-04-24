@@ -37,7 +37,8 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const isOther = objective === "Outro"
-  const finalObjective = isOther ? (otherText.trim() || "Outro") : objective
+  const otherObjective = otherText.trim()
+  const whatsappObjective = isOther ? (otherObjective || "Outro") : objective
   const isFormValid = !!name && !!phone && !!objective && (!isOther || !!otherText.trim()) && agreed
 
   // Fecha dropdown ao clicar fora
@@ -77,7 +78,8 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
         body: JSON.stringify({
           nome: name,
           telefone: phone,
-          objetivo: finalObjective,
+          objetivo: objective,
+          objetivo_outro: isOther ? otherObjective : "",
           origem: "formulario-modal",
           pagina: typeof window !== "undefined" ? window.location.href : "",
           data: new Date().toISOString(),
@@ -92,7 +94,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     setTimeout(() => {
       const whatsappNumber = "5511951515103"
       const message = encodeURIComponent(
-        `Olá! Meu nome é ${name} e gostaria de agendar uma consulta. Meu objetivo principal é: ${finalObjective}.`
+        `Olá! Meu nome é ${name} e gostaria de agendar uma consulta. Meu objetivo principal é: ${whatsappObjective}.`
       )
       window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank")
       onClose()

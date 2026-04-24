@@ -18,7 +18,9 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://odisewmgwxgjhqhsznuv.supabase.co/storage/v1/object/public/taina-stories/story-02.mp4\")",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://odisewmgwxgjhqhsznuv.supabase.co/storage/v1/object/public/taina-stories/story-29.mp4\")",
       "Bash(npx shadcn@latest add @magicui/ripple)",
-      "Bash(SUPABASE_KEY=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9kaXNld21nd3hnamhxaHN6bnV2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3Njk0OTg4OSwiZXhwIjoyMDkyNTI1ODg5fQ.VOu0Za11PX2rxKMjXFtuhMVkSQwdOWn3XaM6377oC8g\" node scripts/upload-logos.mjs)"
+      "Bash(SUPABASE_KEY=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9kaXNld21nd3hnamhxaHN6bnV2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3Njk0OTg4OSwiZXhwIjoyMDkyNTI1ODg5fQ.VOu0Za11PX2rxKMjXFtuhMVkSQwdOWn3XaM6377oC8g\" node scripts/upload-logos.mjs)",
+      "Bash(grep -n \"primary\\\\|foreground\\\\|background\" tailwind.config*)",
+      "Bash(cat tailwind.config*)"
     ]
   }
 }
