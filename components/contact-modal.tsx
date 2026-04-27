@@ -236,7 +236,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   required
                   className="peer w-full px-4 pt-5 pb-2 text-base md:text-sm border border-border rounded-xl bg-muted/30 text-foreground placeholder-transparent focus:outline-none focus:border-primary focus:bg-white transition-all duration-200"
                 />
-                <label className="absolute left-4 top-1.5 text-[10px] uppercase tracking-widest text-primary font-medium pointer-events-none transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base md:peer-placeholder-shown:text-sm peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-muted-foreground peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:tracking-widest peer-focus:text-primary">
+                <label className="absolute left-4 top-1.5 text-[10px] text-primary font-medium pointer-events-none transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base md:peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:text-primary">
                   Nome completo
                 </label>
               </div>
@@ -251,7 +251,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   required
                   className="peer w-full px-4 pt-5 pb-2 text-base md:text-sm border border-border rounded-xl bg-muted/30 text-foreground placeholder-transparent focus:outline-none focus:border-primary focus:bg-white transition-all duration-200"
                 />
-                <label className="absolute left-4 top-1.5 text-[10px] uppercase tracking-widest text-primary font-medium pointer-events-none transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base md:peer-placeholder-shown:text-sm peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-muted-foreground peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:tracking-widest peer-focus:text-primary">
+                <label className="absolute left-4 top-1.5 text-[10px] text-primary font-medium pointer-events-none transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base md:peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:text-primary">
                   WhatsApp
                 </label>
               </div>
@@ -259,7 +259,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
               {/* Objective dropdown */}
               <div ref={dropdownRef} className="relative">
                 {/* Label fixa acima */}
-                <p className="text-[10px] uppercase tracking-widest text-primary font-medium mb-1.5">
+                <p className="text-[10px] text-primary font-medium mb-1.5">
                   Objetivo principal
                 </p>
 
@@ -323,7 +323,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                       autoFocus
                       className="peer w-full px-4 pt-5 pb-2 text-base md:text-sm border border-primary rounded-xl bg-primary/5 text-foreground placeholder-transparent focus:outline-none focus:bg-white transition-all duration-200"
                     />
-                    <label className="absolute left-4 top-1.5 text-[10px] uppercase tracking-widest text-primary font-medium pointer-events-none transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base md:peer-placeholder-shown:text-sm peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-muted-foreground peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:tracking-widest peer-focus:text-primary">
+                    <label className="absolute left-4 top-1.5 text-[10px] text-primary font-medium pointer-events-none transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base md:peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted-foreground peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:text-primary">
                       Descreva seu objetivo
                     </label>
                   </div>
