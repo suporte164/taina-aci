@@ -22,9 +22,9 @@ export const metadata: Metadata = {
   keywords: 'endocrinologista, Vila Mariana, São Paulo, emagrecimento, hormônios, tireoide, diabetes, menopausa, Ozempic, Mounjaro',
   generator: 'v0.app',
   icons: {
-    icon: '/FAV%20ICON%20TAINA%20V1.png',
-    shortcut: '/FAV%20ICON%20TAINA%20V1.png',
-    apple: '/FAV%20ICON%20TAINA%20V1.png',
+    icon: '/FAV%20ICON%20TAINA%20V2.png',
+    shortcut: '/FAV%20ICON%20TAINA%20V2.png',
+    apple: '/FAV%20ICON%20TAINA%20V2.png',
   },
 }
 

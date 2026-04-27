@@ -18,8 +18,16 @@ const instagramReels = [
     embedUrl: "https://www.instagram.com/p/DBRI4QoOmYo/embed",
   },
   {
+    url: "https://www.instagram.com/reel/DL0mNglu81r/",
+    embedUrl: "https://www.instagram.com/reel/DL0mNglu81r/embed",
+  },
+  {
     url: "https://www.instagram.com/reel/C_G5oEKyRFD/",
     embedUrl: "https://www.instagram.com/reel/C_G5oEKyRFD/embed",
+  },
+  {
+    url: "https://www.instagram.com/reel/DGy0VwfOJl3/",
+    embedUrl: "https://www.instagram.com/reel/DGy0VwfOJl3/embed",
   },
   {
     url: "https://www.instagram.com/reel/C-EAqxTuJYk/",
@@ -28,14 +36,6 @@ const instagramReels = [
   {
     url: "https://www.instagram.com/reel/DDuCOIKOw_y/",
     embedUrl: "https://www.instagram.com/reel/DDuCOIKOw_y/embed",
-  },
-  {
-    url: "https://www.instagram.com/reel/DGy0VwfOJl3/",
-    embedUrl: "https://www.instagram.com/reel/DGy0VwfOJl3/embed",
-  },
-  {
-    url: "https://www.instagram.com/reel/DL0mNglu81r/",
-    embedUrl: "https://www.instagram.com/reel/DL0mNglu81r/embed",
   },
 ]
 
