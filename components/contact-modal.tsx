@@ -11,6 +11,14 @@ interface ContactModalProps {
   onClose: () => void
 }
 
+interface UtmParams {
+  utm_source: string
+  utm_medium: string
+  utm_campaign: string
+  utm_term: string
+  utm_content: string
+}
+
 const objectives = [
   "Emagrecimento e Tratamento da Obesidade",
   "Saúde Hormonal Feminina e Menopausa",
@@ -37,6 +45,13 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [utmParams, setUtmParams] = useState<UtmParams>({
+    utm_source: "",
+    utm_medium: "",
+    utm_campaign: "",
+    utm_term: "",
+    utm_content: "",
+  })
   const dropdownRef = useRef<HTMLDivElement>(null)
   const pendingWhatsappWindowRef = useRef<Window | null>(null)
   const hasTrackedFormStartRef = useRef(false)
@@ -57,6 +72,18 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     document.addEventListener("mousedown", handler)
     return () => document.removeEventListener("mousedown", handler)
   }, [])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    const params = new URLSearchParams(window.location.search)
+    setUtmParams({
+      utm_source: params.get("utm_source") ?? "",
+      utm_medium: params.get("utm_medium") ?? "",
+      utm_campaign: params.get("utm_campaign") ?? "",
+      utm_term: params.get("utm_term") ?? "",
+      utm_content: params.get("utm_content") ?? "",
+    })
+  }, [isOpen])
 
   const formatPhone = (value: string) => {
     const numbers = value.replace(/\D/g, "")
@@ -122,6 +149,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
       pushDataLayerEvent("form_submit", {
         origem: "formulario-modal",
         pagina: window.location.href,
+        ...utmParams,
       })
     }
     setIsSubmitting(true)
@@ -151,6 +179,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
           origem: "formulario-modal",
           pagina: typeof window !== "undefined" ? window.location.href : "",
           data: new Date().toISOString(),
+          ...utmParams,
         }),
       })
     } catch (_) {
@@ -261,6 +290,11 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
             </div>
           ) : (
             <form onSubmit={handleSubmit} onFocusCapture={handleFormStart} className="space-y-4">
+              <input type="hidden" name="utm_source" value={utmParams.utm_source} />
+              <input type="hidden" name="utm_medium" value={utmParams.utm_medium} />
+              <input type="hidden" name="utm_campaign" value={utmParams.utm_campaign} />
+              <input type="hidden" name="utm_term" value={utmParams.utm_term} />
+              <input type="hidden" name="utm_content" value={utmParams.utm_content} />
 
               {/* Name input */}
               <div className="relative">
