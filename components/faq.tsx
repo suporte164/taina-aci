@@ -42,12 +42,12 @@ const faqs = [
   {
     question: "Como funciona a consulta com nutricionista incluída?",
     answer:
-      "Na mesma consulta, você é atendido pela Dra. Tainã e por uma nutricionista, de forma integrada. Isso otimiza seu tempo e potencializa os resultados do tratamento.",
+      "Após a avaliação inicial, é possível optar por um programa de acompanhamento clínico que integra o atendimento médico e nutricional. Nessa modalidade, as consultas são realizadas de forma conjunta, a partir de uma metodologia própria, desenvolvida pela Dra Tainã para promover maior alinhamento entre as condutas e resultados mais consistentes.",
   },
   {
     question: "Quanto tempo leva para ver resultados?",
     answer:
-      "Varia conforme cada caso, mas muitos pacientes já percebem melhoras nas primeiras semanas com o plano adequado. O foco é sempre em resultados sustentáveis, não em soluções rápidas.",
+      "O tempo de resposta varia conforme cada caso. Em geral, já é possível observar mudanças iniciais nas primeiras semanas após o início do acompanhamento. O foco, no entanto, é a construção de resultados consistentes e sustentáveis ao longo do tempo.",
   },
 ]
 

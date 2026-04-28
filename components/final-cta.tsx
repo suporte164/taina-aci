@@ -40,7 +40,7 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
           Agenda com número reduzido de pacientes por semana
         </h2>
         <p className="text-lg text-white/70 mb-10 leading-relaxed">
-          Para manter a qualidade do atendimento, a Dra. Tainã reserva um número limitado de vagas semanais. Se você chegou até aqui, é porque está pronto para cuidar da sua saúde de verdade.
+          Para manter a qualidade do atendimento, a Dra. Tainã reserva um número limitado de vagas semanais. Se você chegou até aqui, este pode ser o momento de iniciar um cuidado mais atento, individualizado e orientado por evidências para a sua saúde
         </p>
 
         <div className="space-y-4">
