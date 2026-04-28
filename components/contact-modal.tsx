@@ -14,7 +14,7 @@ interface ContactModalProps {
 const objectives = [
   "Emagrecimento e Tratamento da Obesidade",
   "Saúde Hormonal Feminina e Menopausa",
-  "Saúde Hormonal Masculina e reposição de testosterona Testosterona",
+  "Saúde Hormonal Masculina e reposição de Testosterona",
   "Acompanhamento Pós-Bariátrica",
   "Acompanhamento Metabólico e Hormonal na Gestação",
   "Tratamento de Diabetes (Tipo 1, 2 e Gestacional)",
