@@ -2,7 +2,7 @@ export const runtime = "nodejs"
 
 const WEBHOOK_URLS = [
   "https://n8n-webhook.axmxa0.easypanel.host/webhook/vila-mariana-sp",
-  "https://python-auto-relatorio-trafego.axmxa0.easypanel.host/meta-new-lead",
+  "https://python-auto-relatorio-trafego.axmxa0.easypanel.host/site-new-lead",
 ]
 
 export async function POST(request: Request) {
