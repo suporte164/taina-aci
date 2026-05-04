@@ -84,7 +84,7 @@ export function Location({ onOpenModal }: LocationProps) {
               <div className="flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">
                 <Globe className="w-4 h-4 text-primary" />
                 <span className="text-sm font-medium text-primary">
-                  On-line — Brasil e exterior (Portugal, Estados Unidos e Japão)
+                  On-line - Brasil e Exterior
                 </span>
               </div>
             </div>
